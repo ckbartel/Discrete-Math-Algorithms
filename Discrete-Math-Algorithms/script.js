@@ -197,7 +197,40 @@ function swapIn(curPerm, arrows, i, j) {
   arrows[j] = temp;
 }
 
+function countDerangements(perms, printPerms = false) {
+  let result = 0
+  for (let i = 0; i < perms.length; i++) {
+    if (isDerangement(perms[i], printPerms)) result++;
+
+  }
+  return result;
+}
+
+function isDerangement(perm, printPerms = false) {
+  for (let i = 0; i < perm.length; i++) {
+    if (perm[i] == i + 1) {
+      if (printPerms) console.log(perm, false);
+      return false;
+    }
+  }
+  if (printPerms) console.log(perm, true);
+  return true
+}
+
+function approxE(n, printPerms = false, printVals = true) {
+  let perms = permute(n)[0];
+  let derangements = countDerangements(perms, printPerms);
+  let eApprox = perms.length / derangements;
+  if (printVals) {
+    console.log("Total perms: " + perms.length);
+    console.log("Total derangements: " + derangements);
+    console.log(n, eApprox, Math.E);
+  }
+  return eApprox;
+}
+
 //two main functions:
 //combine(n, r)
 //permutate(n, r)
-console.log(combine(4));
+//approxE(5)
+approxE(11);
